@@ -1,14 +1,17 @@
 package com.clone.GoogleKeep.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter @Setter
 @Entity
 @Table
 public class Note {
@@ -28,6 +31,8 @@ public class Note {
 
     private boolean isPinned;
 
+    private LocalDateTime pinnedTime;
+
     private boolean isRemainderSet;
 
     private LocalDateTime remainderTime;
@@ -42,4 +47,17 @@ public class Note {
             inverseJoinColumns = {@JoinColumn(name = "label_id")})
     private Set<Label> labels = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn
+    @JsonIgnore
+    private User user;
+
+    public void removeLabel(Label label){
+        this.labels.remove(label);
+        label.getNoteSet().remove(this);
+    }
+
+    public void addLabel(Label label){
+        this.labels.add(label);
+    }
 }

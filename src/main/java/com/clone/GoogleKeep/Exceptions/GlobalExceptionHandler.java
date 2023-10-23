@@ -14,20 +14,20 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<ApiErrorResponse> userExistsExceptionHandler(RuntimeException ex){
-        ApiErrorResponse apiErrorResponse = new ApiErrorResponse(400, ex.getMessage());
-        return new ResponseEntity<>(apiErrorResponse,HttpStatus.BAD_REQUEST);
+    @ExceptionHandler({UserAlreadyExistsException.class})
+    public ResponseEntity<ApiResponse> userExistsExceptionHandler(RuntimeException ex){
+        ApiResponse apiResponse = new ApiResponse(400, ex.getMessage());
+        return new ResponseEntity<>(apiResponse,HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ApiErrorResponse> userNotFoundExceptionHandler(RuntimeException ex){
-        ApiErrorResponse apiErrorResponse = new ApiErrorResponse(404, ex.getMessage());
-        return new ResponseEntity<>(apiErrorResponse,HttpStatus.NOT_FOUND);
+    @ExceptionHandler({UserNotFoundException.class, LabelNotFoundException.class, NoteNotFoundException.class})
+    public ResponseEntity<ApiResponse> userNotFoundExceptionHandler(RuntimeException ex){
+        ApiResponse apiResponse = new ApiResponse(404, ex.getMessage());
+        return new ResponseEntity<>(apiResponse,HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiErrorResponse> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex){
+    public ResponseEntity<ApiResponse> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex){
         List<String> errors = new ArrayList<>();
 
         ex.getBindingResult().getAllErrors().forEach(error -> {
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.add(String.format("%s : %s",fieldName,errorMessage));
         });
-        ApiErrorResponse apiErrorResponse = new ApiErrorResponse(404, errors.toString());
-        return new ResponseEntity<>(apiErrorResponse,HttpStatus.BAD_REQUEST);
+        ApiResponse apiResponse = new ApiResponse(404, errors.toString());
+        return new ResponseEntity<>(apiResponse,HttpStatus.BAD_REQUEST);
     }
 }

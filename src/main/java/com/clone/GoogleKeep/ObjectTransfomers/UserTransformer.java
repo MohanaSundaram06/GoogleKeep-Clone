@@ -15,6 +15,7 @@ public class UserTransformer {
                 .password(user.getPassword())
                 .gender(user.getGender().toString())
                 .noteList(user.getNoteList())
+                .labelList(user.getLabelList())
                 .build();
     }
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class ApiErrorResponse {
+public class ApiResponse {
 
     private int statusCode;
 
@@ -13,7 +13,7 @@ public class ApiErrorResponse {
 
     private LocalDateTime timeStamp;
 
-    public ApiErrorResponse(Integer statusCode, String message) {
+    public ApiResponse(Integer statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
         this.timeStamp = LocalDateTime.now();

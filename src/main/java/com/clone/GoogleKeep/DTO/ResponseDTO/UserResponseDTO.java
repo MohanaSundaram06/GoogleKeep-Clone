@@ -1,6 +1,7 @@
 package com.clone.GoogleKeep.DTO.ResponseDTO;
 
 import com.clone.GoogleKeep.Model.Gender;
+import com.clone.GoogleKeep.Model.Label;
 import com.clone.GoogleKeep.Model.Note;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,4 +32,6 @@ public class UserResponseDTO {
     private String gender;
 
     private List<Note> noteList = new ArrayList<>();
+
+    private List<Label> labelList = new ArrayList<>();
 }
