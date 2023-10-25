@@ -13,4 +13,6 @@ public interface UserService {
     public User getUserById(int userId);
 
     public User updateUser(int userId, UserUpdateRequestDTO userUpdateRequestDTO);
+
+    public User getUserByEmail(String username);
 }

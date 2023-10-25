@@ -12,7 +12,6 @@ public class UserTransformer {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
-                .password(user.getPassword())
                 .gender(user.getGender().toString())
                 .noteList(user.getNoteList())
                 .labelList(user.getLabelList())

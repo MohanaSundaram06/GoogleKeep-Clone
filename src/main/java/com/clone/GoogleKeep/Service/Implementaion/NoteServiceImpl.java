@@ -12,6 +12,8 @@ import com.clone.GoogleKeep.Service.NoteService;
 import com.clone.GoogleKeep.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -50,6 +52,7 @@ public class NoteServiceImpl implements NoteService {
     public Note updateNote(int userId, int noteId, NoteRequestDTO noteRequestDTO) {
        Note note = validateUserAndNote(userId,noteId);
        note.setTitle(noteRequestDTO.getTitle());
+       note.setCreatedAt(LocalDateTime.now());
        note.setDescription(noteRequestDTO.getDescription());
 
        return noteRepository.save(note);
@@ -95,6 +98,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Note setRemainder(int userId, int noteId, String remainderTime) {
         Note note = validateUserAndNote(userId,noteId);
+        if(note.isTrashed()) return note;
         note.setRemainderSet(true);
         note.setRemainderTime(LocalDateTime.parse(remainderTime));
         return noteRepository.save(note);
@@ -139,6 +143,12 @@ public class NoteServiceImpl implements NoteService {
 
         List<Note> notes = noteRepository.findAllByUserAndIsArchivedAndIsTrashed(user,false,false,sort);
 
+//        Thread thread = new Thread(() -> {
+//            noteRepository.deleteOlderTrashes(user.getId(), true, LocalDateTime.now());
+//        });
+//        thread.start();
+
+        noteRepository.deleteOlderTrashes(user.getId(), true, LocalDateTime.now());
         return notes;
     }
 
@@ -178,6 +188,22 @@ public class NoteServiceImpl implements NoteService {
         Label label = labelService.getLabelById(userId,labelId);
         note.removeLabel(label);
         return noteRepository.save(note);
+    }
+
+    @Override
+    public List<Note> getAllNotesByLabel(int userId, int labelId) {
+
+        Label label = labelService.getLabelById(userId,labelId);
+        List<Note> notes = noteRepository.findAllByLabelsIdAndIsTrashed(labelId,false);
+
+        return notes;
+    }
+
+    @Override
+    public List<Note> searchInNotes(int userId, String text) {
+        User user = userService.getUserById(userId);
+        List<Note> notes = noteRepository.findAllByUserAndDescriptionContains(user,text);
+        return notes;
     }
 
     private Note validateUserAndNote(int userId, int noteId){

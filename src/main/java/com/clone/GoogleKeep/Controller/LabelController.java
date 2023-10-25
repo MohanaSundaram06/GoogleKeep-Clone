@@ -3,9 +3,7 @@ package com.clone.GoogleKeep.Controller;
 import com.clone.GoogleKeep.Exceptions.ApiResponse;
 import com.clone.GoogleKeep.Model.Label;
 import com.clone.GoogleKeep.Service.LabelService;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +15,13 @@ import java.util.List;
 @RequestMapping("/api/{userId}/label")
 public class LabelController {
 
+
+    private final LabelService labelService;
+
     @Autowired
-    private LabelService labelService;
+    public LabelController(LabelService labelService) {
+        this.labelService = labelService;
+    }
 
     @PostMapping("/")
     public ResponseEntity<Label> addLabel(@PathVariable("userId") int userId,
@@ -45,7 +48,7 @@ public class LabelController {
     public ResponseEntity<ApiResponse> deleteLabel(@PathVariable("userId") int userId,
                                                    @PathVariable("labelId") int labelId){
         labelService.deleteLabel(userId,labelId);
-        return new ResponseEntity<>(new ApiResponse(200,
+        return new ResponseEntity<>(new ApiResponse(HttpStatus.OK,
                 "Label deleted Successfully"),HttpStatus.OK);
     }
 
@@ -57,6 +60,7 @@ public class LabelController {
         Label label = labelService.updateLabel(userId,labelId,labelName);
         return new ResponseEntity<>(label,HttpStatus.OK);
     }
+
 }
 
 

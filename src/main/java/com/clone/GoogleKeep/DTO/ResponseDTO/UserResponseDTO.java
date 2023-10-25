@@ -27,8 +27,6 @@ public class UserResponseDTO {
     @Column(unique = true)
     private String email;
 
-    private String password;
-
     private String gender;
 
     private List<Note> noteList = new ArrayList<>();

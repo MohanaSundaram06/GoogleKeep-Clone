@@ -9,15 +9,20 @@ import com.clone.GoogleKeep.Model.User;
 import com.clone.GoogleKeep.Repository.UserRepository;
 import com.clone.GoogleKeep.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User registerUser(UserRequestDTO userRequestDTO) {
@@ -29,7 +34,8 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userRequestDTO.getFirstName());
         user.setLastName(userRequestDTO.getLastName());
         user.setEmail(userRequestDTO.getEmail());
-        user.setPassword(userRequestDTO.getPassword());
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(bCryptPasswordEncoder.encode(userRequestDTO.getPassword()));
         user.setGender(userRequestDTO.getGender()
                 .equalsIgnoreCase("male") ? Gender.MALE : Gender.FEMALE);
 
@@ -38,7 +44,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(int userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User does not exist"));
+        User user =  userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User does not exist"));
+
+        if(!SecurityContextHolder.getContext().getAuthentication().getName().equals(user.getEmail()))
+            throw new AccessDeniedException("Access Denied");
+
+        return user;
     }
 
     @Override
@@ -46,12 +57,23 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User does not exist"));
 
+        if(!SecurityContextHolder.getContext().getAuthentication().getName().equals(user.getEmail()))
+            throw new AccessDeniedException("Access Denied");
+
         user.setFirstName(userUpdateRequestDTO.getFirstName());
         user.setLastName(userUpdateRequestDTO.getLastName());
-        user.setPassword(userUpdateRequestDTO.getPassword());
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(bCryptPasswordEncoder.encode(userUpdateRequestDTO.getPassword()));
         user.setGender(userUpdateRequestDTO.getGender()
                 .equalsIgnoreCase("male") ? Gender.MALE : Gender.FEMALE);
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByEmail(String username) {
+        User user = userRepository.findByEmail(username).orElseThrow(() -> new UserNotFoundException("User does not exist"));
+
+        return user;
     }
 }

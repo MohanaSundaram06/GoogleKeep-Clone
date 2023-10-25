@@ -8,6 +8,8 @@ import com.clone.GoogleKeep.Repository.LabelRepository;
 import com.clone.GoogleKeep.Service.LabelService;
 import com.clone.GoogleKeep.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -69,9 +71,12 @@ public class LabelServiceImpl implements LabelService {
         return labelRepository.save(label);
     }
 
+
     private Label validateUserAndLabel(int userId, int labelId){
 
         User user = userService.getUserById(userId);
+        if(!SecurityContextHolder.getContext().getAuthentication().getName().equals(user.getEmail()))
+            throw new AccessDeniedException("Access Denied");
         return labelRepository.findByIdAndUser(labelId,user).
                 orElseThrow(() -> new LabelNotFoundException("Label does not exists"));
     }

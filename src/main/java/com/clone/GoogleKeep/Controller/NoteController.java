@@ -3,6 +3,7 @@ package com.clone.GoogleKeep.Controller;
 import com.clone.GoogleKeep.DTO.RequestDTO.NoteRequestDTO;
 import com.clone.GoogleKeep.DTO.ResponseDTO.NoteResponseDTO;
 import com.clone.GoogleKeep.Exceptions.ApiResponse;
+import com.clone.GoogleKeep.Model.Label;
 import com.clone.GoogleKeep.Model.Note;
 import com.clone.GoogleKeep.ObjectTransfomers.NoteTransformer;
 import com.clone.GoogleKeep.Service.NoteService;
@@ -17,8 +18,12 @@ import java.util.List;
 @RequestMapping("/api/{userId}/note")
 public class NoteController {
 
+    private final NoteService noteService;
+
     @Autowired
-    private NoteService noteService;
+    public NoteController(NoteService noteService) {
+        this.noteService = noteService;
+    }
 
     @PostMapping("/")
     public ResponseEntity<NoteResponseDTO> addNote(@PathVariable("userId") int userId, @RequestBody NoteRequestDTO noteRequestDTO){
@@ -77,7 +82,7 @@ public class NoteController {
     @DeleteMapping("/{noteId}/delete-trash")
     public ResponseEntity<ApiResponse> deleteNote(@PathVariable("userId") int userId, @PathVariable("noteId") int noteId){
         noteService.deleteNote(userId, noteId);
-        return new ResponseEntity<>(new ApiResponse(200,
+        return new ResponseEntity<>(new ApiResponse(HttpStatus.OK,
                 "Note deleted Successfully"),HttpStatus.OK);
     }
 
@@ -130,6 +135,20 @@ public class NoteController {
                                                           @PathVariable("labelId") int labelId){
         NoteResponseDTO noteResponseDTO = NoteTransformer.ModelToDTO(noteService.removeLabelFromNote(userId, noteId,labelId));
         return new ResponseEntity<>(noteResponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/{labelId}/notes")
+    public ResponseEntity<List<Note>> getAllNotesByLabel(@PathVariable("userId") int userId,
+                                                          @PathVariable("labelId") int labelId){
+        List<Note> notes = noteService.getAllNotesByLabel(userId,labelId);
+        return new ResponseEntity<>(notes,HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{text}")
+    public ResponseEntity<List<Note>> searchInNotes(@PathVariable("userId") int userId,
+                                                         @PathVariable("text") String text){
+        List<Note> notes = noteService.searchInNotes(userId,text);
+        return new ResponseEntity<>(notes,HttpStatus.OK);
     }
 }
 

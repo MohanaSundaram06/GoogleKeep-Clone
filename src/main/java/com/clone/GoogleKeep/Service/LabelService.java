@@ -15,4 +15,5 @@ public interface LabelService {
     public void deleteLabel(int userId, int labelId);
 
     public Label updateLabel(int userId, int labelId, String labelName);
+
 }

@@ -1,6 +1,7 @@
 package com.clone.GoogleKeep.Service;
 
 import com.clone.GoogleKeep.DTO.RequestDTO.NoteRequestDTO;
+import com.clone.GoogleKeep.Model.Label;
 import com.clone.GoogleKeep.Model.Note;
 import org.springframework.stereotype.Service;
 
@@ -43,4 +44,8 @@ public interface NoteService {
     Note addLabelToNote(int userId, int noteId, int labelId);
 
     Note removeLabelFromNote(int userId, int noteId, int labelId);
+
+    List<Note> getAllNotesByLabel(int userId, int labelId);
+
+    List<Note> searchInNotes(int userId, String text);
 }
