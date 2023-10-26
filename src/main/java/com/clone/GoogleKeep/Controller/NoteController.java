@@ -3,7 +3,6 @@ package com.clone.GoogleKeep.Controller;
 import com.clone.GoogleKeep.DTO.RequestDTO.NoteRequestDTO;
 import com.clone.GoogleKeep.DTO.ResponseDTO.NoteResponseDTO;
 import com.clone.GoogleKeep.Exceptions.ApiResponse;
-import com.clone.GoogleKeep.Model.Label;
 import com.clone.GoogleKeep.Model.Note;
 import com.clone.GoogleKeep.ObjectTransfomers.NoteTransformer;
 import com.clone.GoogleKeep.Service.NoteService;

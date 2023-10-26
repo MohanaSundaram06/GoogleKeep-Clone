@@ -38,6 +38,6 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "delete from Note where user_id = :user_id and is_trashed = :b and trashed_date < (:now - INTERVAL 1 minute)", nativeQuery = true)
+    @Query(value = "delete from Note where user_id = :user_id and is_trashed = :b and trashed_date < (:now - INTERVAL 30 days)", nativeQuery = true)
     void deleteOlderTrashes(@Param("user_id") int user, @Param("b") boolean b,  @Param("now") LocalDateTime now);
 }

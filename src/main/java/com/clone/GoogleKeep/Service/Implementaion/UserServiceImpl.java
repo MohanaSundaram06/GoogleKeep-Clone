@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user.setPassword(bCryptPasswordEncoder.encode(userUpdateRequestDTO.getPassword()));
         user.setGender(userUpdateRequestDTO.getGender()
-                .equalsIgnoreCase("male") ? Gender.MALE : Gender.FEMALE);
+                .equalsIgnoreCase("female") ? Gender.FEMALE : Gender.MALE);
 
         return userRepository.save(user);
     }

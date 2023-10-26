@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
         }
         else if (ex instanceof ExpiredJwtException) {
             apiResponse = new ApiResponse(HttpStatus.FORBIDDEN,
-                    "JWT Token already expired ");
+                    "JWT Token expired ");
         }
 
         else if (ex instanceof MalformedJwtException) {

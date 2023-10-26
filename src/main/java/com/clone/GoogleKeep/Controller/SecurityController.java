@@ -33,7 +33,7 @@ public class SecurityController {
                         authenticationRequestDTO.getPassword()));
 
         if (! authentication.isAuthenticated())
-            new ResponseEntity<>(new ApiResponse(HttpStatus.BAD_GATEWAY,
+            new ResponseEntity<>(new ApiResponse(HttpStatus.BAD_REQUEST,
                     "Invalid Credentials"),HttpStatus.BAD_REQUEST);
 
         String token = jwtService.generateToken(authenticationRequestDTO.getUsername());
