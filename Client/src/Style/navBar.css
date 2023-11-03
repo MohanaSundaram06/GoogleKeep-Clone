@@ -1,0 +1,25 @@
+.navbar {
+  color: rgb(198, 196, 196);
+  padding-inline: 40px !important;
+  align-items: center !important;
+  height: 80px;
+}
+.menu div {
+  margin-right: 30px;
+  font-size: 18px;
+  padding: 5px;
+  cursor: pointer;
+}
+.user div {
+  margin-right: 30px;
+  font-size: 18px;
+  padding: 5px;
+  cursor: pointer;
+}
+.menu > div:hover,
+.user > div:hover {
+  color: white;
+}
+.navbar li {
+  list-style: none;
+}

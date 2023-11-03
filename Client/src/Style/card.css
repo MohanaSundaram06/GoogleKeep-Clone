@@ -1,0 +1,44 @@
+.card1 {
+  padding: 6px;
+  text-align: center;
+  width: 200px;
+  height: 250px;
+  box-shadow: 3px 2px 8px rgb(68, 67, 67);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px;
+  background-color: rgb(238, 233, 233);
+  position: relative;
+}
+.card1:hover {
+  transform: scale(1.05);
+}
+.card1 div {
+  width: 100%;
+  border-top: 1.5px solid black;
+  padding-top: 5px;
+  cursor: pointer;
+}
+
+.notes {
+  width: 100vw;
+  padding: 30px;
+  justify-content: start;
+}
+.card1 p {
+  height: 100px;
+  overflow-y: scroll;
+}
+.utility-icons {
+  position: relative;
+}
+
+.date-card {
+  position: absolute;
+  background-color: aqua;
+  overflow: visible;
+  z-index: 100000;
+}

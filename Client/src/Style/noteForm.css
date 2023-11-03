@@ -1,0 +1,55 @@
+.note-form {
+  background-color: lightgrey;
+  width: 450px;
+  padding: 24px;
+  border-radius: 8px;
+  opacity: 0.94;
+}
+.note-form div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+.note-form ::placeholder {
+  opacity: 0.6;
+  letter-spacing: 1.1px;
+  padding-left: 20px;
+}
+
+.note-form-container {
+  margin-left: 40vw;
+  margin-top: 20vh;
+  z-index: 3;
+  position: absolute;
+}
+
+.back-drop {
+  background-color: black;
+  opacity: 0.6;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+}
+
+.back-drop-home {
+  background-color: black;
+  opacity: 0.6;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+}
+
+.note-form div > input {
+  width: 300px;
+}
+.note-form span {
+  font-size: smaller;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 100px;
+  color: red;
+  margin-top: 6px;
+}

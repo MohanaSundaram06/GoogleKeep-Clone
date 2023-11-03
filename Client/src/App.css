@@ -1,0 +1,19 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.plus-button {
+  font-size: 48px;
+  font-weight: 400;
+  width: 70px;
+  color: black;
+  background-color: rgb(180, 184, 174);
+  border-radius: 100%;
+  border: none;
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  cursor: pointer;
+}
