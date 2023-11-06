@@ -19,7 +19,15 @@ function Navbar() {
             >
               Notes
             </div>
-            <div>Remainder</div>
+
+            <div
+              onClick={() => {
+                navigate("/remainder");
+              }}
+            >
+              Remainder
+            </div>
+
             <div
               onClick={() => {
                 navigate("/label");
@@ -27,6 +35,7 @@ function Navbar() {
             >
               Labels
             </div>
+
             <div
               onClick={() => {
                 navigate("/archive");
@@ -34,6 +43,7 @@ function Navbar() {
             >
               Archived
             </div>
+
             <div
               onClick={() => {
                 navigate("/trash");

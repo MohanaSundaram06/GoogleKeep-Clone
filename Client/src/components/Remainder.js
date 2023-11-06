@@ -4,17 +4,17 @@ import Note from "./Note";
 import "../Style/card.css";
 import PlusButton from "./PlusButton";
 
-function Notes() {
+function Remainder() {
   const [noteList, setNoteList] = useState(null);
   const [isCalenderOpen, setCalender] = useState(-1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await ApiService.getNotes("1");
+        const response = await ApiService.getAllRemainderNotes();
         //   console.log(response.data)
         setNoteList(response.data);
-      } catch (error) { 
+      } catch (error) {
         console.log(error.response.data);
       }
     };
@@ -44,4 +44,4 @@ function Notes() {
   );
 }
 
-export default Notes;
+export default Remainder;

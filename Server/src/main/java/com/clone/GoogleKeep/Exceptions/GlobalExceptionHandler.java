@@ -22,7 +22,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({UserAlreadyExistsException.class,LabelOverFlowException.class})
     public ResponseEntity<ApiResponse> userExistsExceptionHandler(RuntimeException ex){
         ApiResponse apiResponse = new ApiResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
-        System.out.println("throwing");
         return new ResponseEntity<>(apiResponse,HttpStatus.BAD_REQUEST);
     }
 

@@ -1,6 +1,10 @@
 import axios from "axios";
 
 class ApiService {
+  // *************************************
+  //   User Service Api
+  // *************************************
+
   login = (loginDto) => {
     const response = axios.post(
       `http://localhost:8080/api/authenticate`,
@@ -14,7 +18,8 @@ class ApiService {
       `http://localhost:8080/api/user/register`,
       registerData
     );
-    console.log(response);
+    // .catch(console.error());
+
     return response;
   };
 
@@ -33,6 +38,10 @@ class ApiService {
     // console.log(response);
     return response;
   };
+
+  // *************************************
+  //   Note Service Api
+  // *************************************
 
   getNotes = (userId) => {
     const headers = {
@@ -76,6 +85,10 @@ class ApiService {
     return response;
   };
 
+  // *************************************
+  //   Trash Service Api
+  // *************************************
+
   trashNote = (noteId) => {
     const headers = {
       Authorization: "Bearer " + localStorage.getItem("token"),
@@ -107,6 +120,7 @@ class ApiService {
     );
     return response;
   };
+
   deleteNote = (noteId) => {
     const headers = {
       Authorization: "Bearer " + localStorage.getItem("token"),
@@ -139,6 +153,10 @@ class ApiService {
     return response;
   };
 
+  // *************************************
+  //   Archive Service Api
+  // *************************************
+
   archiveNote = (noteId) => {
     const headers = {
       Authorization: "Bearer " + localStorage.getItem("token"),
@@ -154,6 +172,7 @@ class ApiService {
     );
     return response;
   };
+
   unArchiveNote = (noteId) => {
     const headers = {
       Authorization: "Bearer " + localStorage.getItem("token"),
@@ -186,6 +205,59 @@ class ApiService {
     console.log(response);
     return response;
   };
+
+  // *************************************
+  //   Remainder Service Api
+  // *************************************
+
+  setRemainder = (noteId, remainder) => {
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    };
+    const idUser = Number(localStorage.getItem("userId"));
+
+    const response = axios.put(
+      `http://localhost:8080/api/${idUser}/note/${noteId}/set-remainder?remainderTime=${remainder}`,
+      null,
+      { headers }
+    );
+    return response;
+  };
+
+  deleteRemainder = (noteId) => {
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    };
+    const idUser = Number(localStorage.getItem("userId"));
+
+    const response = axios.put(
+      `http://localhost:8080/api/${idUser}/note/${noteId}/delete-remainder`,
+      null,
+      { headers }
+    );
+    return response;
+  };
+
+  getAllRemainderNotes = () => {
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    };
+    const idUser = Number(localStorage.getItem("userId"));
+
+    // console.log("get trash");
+    const response = axios.get(
+      `http://localhost:8080/api/${idUser}/note/remainders`,
+      {
+        headers,
+      }
+    );
+    console.log(response);
+    return response;
+  };
+
+  // *************************************
+  //   Label Service Api
+  // *************************************
 
   addLabel = (name) => {
     const headers = {

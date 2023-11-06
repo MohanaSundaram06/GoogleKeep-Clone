@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerUser(UserRequestDTO userRequestDTO) {
-        System.out.println(("testing error"));
         if(userRepository.existsByEmail(userRequestDTO.getEmail()))
             throw new UserAlreadyExistsException( String.format("%s already exists",userRequestDTO.getEmail()));
 

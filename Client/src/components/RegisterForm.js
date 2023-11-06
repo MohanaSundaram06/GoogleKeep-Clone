@@ -54,12 +54,13 @@ function RegisterForm() {
           navigate("/");
         })
         .catch((error) => {
-          console.log("error " + error);
           newErrors.main = error.response.data.message;
-          setErrors(newErrors);
+          setErrors((prevData) => {
+            return { ...prevData, newErrors };
+          });
         });
     }
-    setErrors(newErrors);
+    setErrors(() => newErrors);
   };
 
   return (

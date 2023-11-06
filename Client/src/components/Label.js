@@ -4,7 +4,6 @@ import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import ApiService from "../Services/ApiService";
 import { Button } from "reactstrap";
 import "../Style/label.css";
-import { Flag } from "@mui/icons-material";
 
 function Label() {
   const [labelList, setLabelList] = useState(null);

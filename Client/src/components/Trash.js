@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "../Style/card.css";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ApiService from "../Services/ApiService";
-import { useNavigate } from "react-router-dom";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 
 function Trash() {
@@ -20,8 +19,6 @@ function Trash() {
     };
     fetchData();
   }, []);
-
-  const navigate = useNavigate();
 
   const restoreNoteHandler = (event, id) => {
     ApiService.restoreNote(id).then((response) => {

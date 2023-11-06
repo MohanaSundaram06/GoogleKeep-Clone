@@ -1,17 +1,17 @@
 .card1 {
   padding: 6px;
   text-align: center;
-  width: 200px;
-  height: 250px;
+  width: 220px;
+  height: 270px;
   box-shadow: 3px 2px 8px rgb(68, 67, 67);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 16px;
-  background-color: rgb(238, 233, 233);
+  margin: 28px;
   position: relative;
+  background-color: #f4fce3;
 }
 .card1:hover {
   transform: scale(1.05);
@@ -20,7 +20,6 @@
   width: 100%;
   border-top: 1.5px solid black;
   padding-top: 5px;
-  cursor: pointer;
 }
 
 .notes {
@@ -32,13 +31,28 @@
   height: 100px;
   overflow-y: scroll;
 }
-.utility-icons {
+
+.date-card {
+  position: relative;
+  background-color: rgb(248, 222, 172);
+  bottom: 8px;
+  left: 80px;
+  z-index: 5;
+}
+
+.card-container {
   position: relative;
 }
 
-.date-card {
-  position: absolute;
-  background-color: aqua;
-  overflow: visible;
-  z-index: 100000;
+.card1 > div > * {
+  padding: 3px;
+  color: #9d6b53;
+  cursor: pointer;
+}
+.card1 > div > *:hover,
+.icon-pad {
+  transform: scale(1.2);
+  background-color: #c0eb75;
+  border-radius: 50%;
+  color: #774936 !important;
 }

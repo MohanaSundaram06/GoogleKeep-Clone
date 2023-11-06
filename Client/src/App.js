@@ -1,27 +1,17 @@
-import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import RegisterForm from "./components/RegisterForm";
-import Landing from "./components/Landing";
 import NoteForm from "./components/NoteForm";
 import EditNote from "./components/EditNote";
 import Trash from "./components/Trash";
 import Archived from "./components/Archived";
 import Navbar from "./components/Navbar";
-import PlusButton from "./components/PlusButton";
 import Notes from "./components/Notes";
 import "./App.css";
 import Label from "./components/Label";
+import Remainder from "./components/Remainder";
 
 function App() {
-  const [userData, setUserData] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      setUserData(() => localStorage.getItem("userId"));
-    };
-
-    fetchData();
-  }, [userData]);
   return (
     <>
       <BrowserRouter>
@@ -32,6 +22,7 @@ function App() {
           <Route path="/home" element={<Notes />} />
 
           <Route path="/archive" element={<Archived />} />
+          <Route path="/remainder" element={<Remainder />} />
           <Route path="/trash" element={<Trash />} />
           <Route path="/add-note" element={<NoteForm />} />
           <Route path="/label" element={<Label />} />

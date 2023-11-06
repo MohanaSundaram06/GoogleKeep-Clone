@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "../Style/card.css";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import ApiService from "../Services/ApiService";
-import { useNavigate } from "react-router-dom";
 
 function Archived() {
   const [noteList, setNoteList] = useState(null);
@@ -19,8 +18,6 @@ function Archived() {
     };
     fetchData();
   }, []);
-
-  const navigate = useNavigate();
 
   const unArchiveHandler = (event, id) => {
     ApiService.unArchiveNote(id).then((response) => {
@@ -40,6 +37,9 @@ function Archived() {
               <p>{data.description}</p>
               <div className="d-flex justify-content-around w-100">
                 <UnarchiveIcon
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="UnArchive"
+                  data-tooltip-place="bottom"
                   onClick={(event) => {
                     unArchiveHandler(event, data.id);
                   }}
