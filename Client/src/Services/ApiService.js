@@ -25,9 +25,9 @@ class ApiService {
 
   getNote = (userId, noteId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.get(
       `http://localhost:8080/api/${idUser}/note/${noteId}`,
@@ -45,9 +45,9 @@ class ApiService {
 
   getNotes = (userId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     console.log(headers);
     const response = axios.get(`http://localhost:8080/api/${idUser}/note/`, {
@@ -59,9 +59,9 @@ class ApiService {
 
   addNote = (userId, noteRequestDTO) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.post(
       `http://localhost:8080/api/${idUser}/note/`,
@@ -73,9 +73,9 @@ class ApiService {
 
   updateNote = (userId, noteId, noteRequestDTO) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.put(
       `http://localhost:8080/api/${idUser}/note/${noteId}`,
@@ -86,14 +86,65 @@ class ApiService {
   };
 
   // *************************************
+  //  Note Label Service Api
+  // *************************************
+
+  AddNoteLabel = (noteId, labelId) => {
+    const headers = {
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+    };
+    const idUser = Number(sessionStorage.getItem("userId"));
+
+    const response = axios.put(
+      `http://localhost:8080/api/${idUser}/note/${noteId}/add-label/${labelId}`,
+      null,
+      {
+        headers,
+      }
+    );
+    return response;
+  };
+
+  removeNoteLabel = (noteId, labelId) => {
+    const headers = {
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+    };
+    const idUser = Number(sessionStorage.getItem("userId"));
+
+    const response = axios.put(
+      `http://localhost:8080/api/${idUser}/note/${noteId}/remove-label/${labelId}`,
+      null,
+      {
+        headers,
+      }
+    );
+    return response;
+  };
+
+  filterLabelNotes = (labelId) => {
+    const headers = {
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+    };
+    const idUser = Number(sessionStorage.getItem("userId"));
+
+    const response = axios.get(
+      `http://localhost:8080/api/${idUser}/note/${labelId}/notes`,
+      {
+        headers,
+      }
+    );
+    // console.log(response);
+    return response;
+  };
+  // *************************************
   //   Trash Service Api
   // *************************************
 
   trashNote = (noteId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.put(
       `http://localhost:8080/api/${idUser}/note/${noteId}/trash`,
@@ -107,9 +158,9 @@ class ApiService {
 
   restoreNote = (noteId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.put(
       `http://localhost:8080/api/${idUser}/note/${noteId}/restore-trash`,
@@ -123,9 +174,9 @@ class ApiService {
 
   deleteNote = (noteId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.delete(
       `http://localhost:8080/api/${idUser}/note/${noteId}/delete-trash`,
@@ -138,9 +189,9 @@ class ApiService {
 
   getTrashNotes = (userId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     // console.log("get trash");
     const response = axios.get(
@@ -159,9 +210,9 @@ class ApiService {
 
   archiveNote = (noteId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.put(
       `http://localhost:8080/api/${idUser}/note/${noteId}/archive`,
@@ -175,9 +226,9 @@ class ApiService {
 
   unArchiveNote = (noteId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.put(
       `http://localhost:8080/api/${idUser}/note/${noteId}/unarchive`,
@@ -191,9 +242,9 @@ class ApiService {
 
   getArchivedhNotes = (userId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     // console.log("get trash");
     const response = axios.get(
@@ -212,9 +263,9 @@ class ApiService {
 
   setRemainder = (noteId, remainder) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.put(
       `http://localhost:8080/api/${idUser}/note/${noteId}/set-remainder?remainderTime=${remainder}`,
@@ -226,9 +277,9 @@ class ApiService {
 
   deleteRemainder = (noteId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.put(
       `http://localhost:8080/api/${idUser}/note/${noteId}/delete-remainder`,
@@ -240,9 +291,9 @@ class ApiService {
 
   getAllRemainderNotes = () => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     // console.log("get trash");
     const response = axios.get(
@@ -261,9 +312,9 @@ class ApiService {
 
   addLabel = (name) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.post(
       `http://localhost:8080/api/${idUser}/label/?labelName=${name}`,
@@ -278,9 +329,9 @@ class ApiService {
 
   updateLabel = (labelId, name) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
     const response = axios.put(
       `http://localhost:8080/api/${idUser}/label/${labelId}?labelName=${name}`,
       null,
@@ -294,9 +345,9 @@ class ApiService {
 
   getLabels = () => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.get(`http://localhost:8080/api/${idUser}/label/`, {
       headers,
@@ -307,9 +358,9 @@ class ApiService {
 
   deleteLabel = (labelId) => {
     const headers = {
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     };
-    const idUser = Number(localStorage.getItem("userId"));
+    const idUser = Number(sessionStorage.getItem("userId"));
 
     const response = axios.delete(
       `http://localhost:8080/api/${idUser}/label/${labelId}`,

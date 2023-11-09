@@ -16,10 +16,10 @@ function NoteForm({ data }) {
   // validating the form
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.title.trim()) newErrors.title = "title is required";
+    if (!formData.title.trim()) newErrors.title = "Title is required";
 
     if (!formData.description.trim())
-      newErrors.description = "description is required";
+      newErrors.description = "Description is required";
 
     if (Object.keys(newErrors).length === 0) {
       if (data != null) {

@@ -34,7 +34,7 @@ function RegisterForm() {
   const validateForm = () => {
     const newErrors = {};
     if (!formData.firstName.trim() || formData.firstName.length < 2)
-      newErrors.firstName = "Name should be minimum of two character";
+      newErrors.firstName = "Name should contain minimum 2 characters";
 
     const emailRegex = new RegExp(
       /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
@@ -42,10 +42,10 @@ function RegisterForm() {
     );
     const isValidEmail = emailRegex.test(formData.email);
     if (!formData.email.trim() || formData.email.length < 8 || !isValidEmail)
-      newErrors.email = "Enter valid email id";
+      newErrors.email = "Enter a valid email id";
 
     if (!formData.password.trim() || formData.password.length < 8)
-      newErrors.password = "Password should be minimum of 8 character";
+      newErrors.password = "Password should contain minimum 8 characters";
 
     if (Object.keys(newErrors).length === 0) {
       ApiService.register(formData)
@@ -77,6 +77,7 @@ function RegisterForm() {
               className="rounded border-0 p-1"
               type="text"
               name="firstName"
+              placeholder="First Name"
               value={formData.firstName}
               onChange={handleInputChange}
             />
@@ -88,6 +89,7 @@ function RegisterForm() {
               className="rounded border-0 p-1"
               type="text"
               name="lastName"
+              placeholder="Last Name"
               value={formData.lastName}
               onChange={handleInputChange}
             />
@@ -98,6 +100,7 @@ function RegisterForm() {
               className="rounded border-0 p-1"
               type="email"
               name="email"
+              placeholder="Email"
               value={formData.email}
               onChange={handleInputChange}
             />
@@ -109,6 +112,7 @@ function RegisterForm() {
               className="rounded border-0 p-1"
               type="password"
               name="password"
+              placeholder="Password"
               value={formData.password}
               onChange={handleInputChange}
             />

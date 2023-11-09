@@ -5,12 +5,14 @@
 }
 
 .plus-button {
-  font-size: 48px;
-  font-weight: 400;
-  width: 70px;
-  color: black;
-  background-color: rgb(180, 184, 174);
-  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  font-size: 52px;
+  padding: 0px 22px;
+  color: #9d6b53;
+  background-color: #d3f9d8;
+  border-radius: 50%;
   border: none;
   position: fixed;
   bottom: 40px;

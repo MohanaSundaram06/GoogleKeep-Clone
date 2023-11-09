@@ -1,24 +1,33 @@
 .container {
   text-align: center;
+  position: relative;
 }
 
-.container form {
-  background-color: rgb(238, 233, 233);
+.head {
+  z-index: 20;
+}
+.container form,
+.container .head {
+  background-color: #d0ebff;
   padding: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
+  margin-bottom: 28px;
   box-shadow: 3px 2px 8px rgb(68, 67, 67);
-  margin-bottom: 24px;
+  border-radius: 0px 0px 20px 20px;
+  color: #3e1808;
 }
+
 input {
   height: 30px;
   width: 180px;
   border-radius: 5px;
   padding-inline-start: 15px;
-  border: none;
+  border: 1px solid #2e2019;
 }
+
 ::placeholder {
   opacity: 0.6;
   letter-spacing: 1.05px;
@@ -27,17 +36,16 @@ input {
 table {
   gap: 5px;
   display: inline-block;
-  background-color: rgb(31, 31, 31);
+  background-color: #d0ebff;
   opacity: 0.9;
-  border-radius: 16px;
-  color: white;
+  color: black;
 }
 
 td,
 th {
-  border: 1px solid white !important;
-  border-collapse: collapse;
-  border-radius: 5px;
+  border: 1.5px solid #9d6b53 !important;
+  /* border-collapse: collapse; */
+  border-radius: 100px;
 }
 th {
   padding: 8px 28px;
@@ -53,14 +61,22 @@ td > div {
 }
 
 td > div > * {
+  padding: 1px;
+  color: #9d6b53;
   cursor: pointer;
+}
+
+td > div > *:hover {
+  transform: scale(1.02);
+  background-color: #774936;
+  border-radius: 50%;
+  color: white !important;
 }
 
 form span {
   font-size: smaller;
   display: flex;
   justify-content: flex-start;
-
   color: red;
   margin-top: 6px;
 }

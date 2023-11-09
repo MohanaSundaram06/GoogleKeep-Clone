@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../Style/card.css";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import ApiService from "../Services/ApiService";
+import { Tooltip } from "@mui/material";
 
 function Archived() {
   const [noteList, setNoteList] = useState(null);
@@ -28,26 +29,31 @@ function Archived() {
   };
 
   return (
-    <div className="d-flex flex-wrap notes">
-      {noteList &&
-        noteList.map((data) => {
-          return (
-            <div className="card1" id={data.id} key={data.id}>
-              <h3>{data.title}</h3>
-              <p>{data.description}</p>
-              <div className="d-flex justify-content-around w-100">
-                <UnarchiveIcon
-                  data-tooltip-id="my-tooltip"
-                  data-tooltip-content="UnArchive"
-                  data-tooltip-place="bottom"
-                  onClick={(event) => {
-                    unArchiveHandler(event, data.id);
-                  }}
-                />
+    <div className="hero-main">
+      <div className="doodle"></div>
+      <div className="d-flex flex-wrap notes">
+        {noteList &&
+          noteList.map((data) => {
+            return (
+              <div className="card1" id={data.id} key={data.id}>
+                <h5>{data.title}</h5>
+                <p>{data.description}</p>
+                <div className="d-flex justify-content-around w-100">
+                  <Tooltip title="Unarchive">
+                    <UnarchiveIcon
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content="UnArchive"
+                      data-tooltip-place="bottom"
+                      onClick={(event) => {
+                        unArchiveHandler(event, data.id);
+                      }}
+                    />
+                  </Tooltip>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+      </div>
     </div>
   );
 }

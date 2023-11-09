@@ -1,10 +1,25 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import "../Style/navBar.css";
 import { useNavigate } from "react-router-dom";
+import ApiService from "../Services/ApiService";
+import Dropdown from "./Dropdown";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 function Navbar() {
   const navigate = useNavigate();
-  const userData = localStorage.getItem("userId");
+  const userData = sessionStorage.getItem("userId");
+  const [isdropDownActive, setDropDown] = useState(false);
+  const [labelList, setLabelList] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const response = await ApiService.getLabels();
+      // console.log(response.data);
+      setLabelList(response.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
 
   return (
     <Fragment>
@@ -28,12 +43,37 @@ function Navbar() {
               Remainder
             </div>
 
+            <section className=".dropdown-menu ">
+              <div
+                className="menu-icon"
+                onClick={() => {
+                  fetchData();
+                  setDropDown((prevState) => !prevState);
+                }}
+              >
+                Labels <KeyboardArrowDownOutlinedIcon />
+              </div>
+              {isdropDownActive && labelList && (
+                <menu className="dropdown-items">
+                  {labelList.map((labelData) => (
+                    <Dropdown
+                      key={labelData.id}
+                      label={labelData}
+                      onShow={() => {
+                        setDropDown((prevState) => !prevState);
+                      }}
+                    />
+                  ))}
+                </menu>
+              )}
+            </section>
+
             <div
               onClick={() => {
                 navigate("/label");
               }}
             >
-              Labels
+              Edit Labels
             </div>
 
             <div
@@ -53,10 +93,10 @@ function Navbar() {
             </div>
           </div>
           <div className="d-flex user">
-            <div>{localStorage.getItem("username")}</div>
+            <div>{sessionStorage.getItem("username")}</div>
             <div
               onClick={() => {
-                localStorage.clear();
+                sessionStorage.clear();
                 navigate("/");
                 window.location.reload();
               }}

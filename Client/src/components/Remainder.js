@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import ApiService from "../Services/ApiService";
 import Note from "./Note";
 import "../Style/card.css";
-import PlusButton from "./PlusButton";
 
 function Remainder() {
   const [noteList, setNoteList] = useState(null);
@@ -22,7 +21,8 @@ function Remainder() {
   }, []);
 
   return (
-    <Fragment>
+    <div className="hero-main">
+      <div className="doodle"></div>
       <div className="d-flex flex-wrap notes">
         {/* {console.log(noteList)} */}
         {noteList &&
@@ -39,8 +39,7 @@ function Remainder() {
             );
           })}
       </div>
-      <PlusButton />
-    </Fragment>
+    </div>
   );
 }
 

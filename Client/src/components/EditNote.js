@@ -5,7 +5,6 @@ import ApiService from "../Services/ApiService";
 
 function EditNote() {
   const { id } = useParams();
-
   const [note, setNote] = useState(null);
 
   useEffect(() => {

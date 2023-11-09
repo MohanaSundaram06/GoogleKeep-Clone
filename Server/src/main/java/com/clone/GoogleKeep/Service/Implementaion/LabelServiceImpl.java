@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class LabelServiceImpl implements LabelService {
@@ -59,8 +60,12 @@ public class LabelServiceImpl implements LabelService {
     public void deleteLabel(int userId, int labelId) {
 
         Label label = validateUserAndLabel(userId,labelId);
-        for(Note note : label.getNoteSet()) note.removeLabel(label);
+        List<Note> notes  = new ArrayList<>(label.getNoteSet());
+
+        for(Note note : notes)  note.removeLabel(label);
+
         labelRepository.delete(label);
+
     }
 
     @Override

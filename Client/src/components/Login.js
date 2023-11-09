@@ -16,10 +16,10 @@ function Login(data) {
   // validating the form
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.username.trim()) newErrors.title = "email is required";
+    if (!formData.username.trim()) newErrors.title = "Email is required";
 
     if (!formData.password.trim())
-      newErrors.description = "password is required";
+      newErrors.description = "Password is required";
 
     setErrors(newErrors);
 
@@ -27,10 +27,10 @@ function Login(data) {
       ApiService.login(formData)
         .then((response) => {
           console.log(response);
-          localStorage.setItem("userId", response.data.id);
-          localStorage.setItem("email", response.data.email);
-          localStorage.setItem("username", response.data.username);
-          localStorage.setItem("token", response.data.accessToken);
+          sessionStorage.setItem("userId", response.data.id);
+          sessionStorage.setItem("email", response.data.email);
+          sessionStorage.setItem("username", response.data.username);
+          sessionStorage.setItem("token", response.data.accessToken);
           navigate("/home");
         })
         .catch((error) => {
@@ -57,6 +57,7 @@ function Login(data) {
   return (
     <Fragment>
       <div className="back-drop-home"></div>
+
       <div className="d-flex justify-content-center text-center note-form-container">
         <form onSubmit={handleSubmit} className="note-form">
           <h4 className="mb-4">Login</h4>

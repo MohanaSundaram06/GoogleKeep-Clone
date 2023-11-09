@@ -16,7 +16,7 @@ function Label() {
     const fetchData = async () => {
       try {
         const response = await ApiService.getLabels();
-        console.log(response.data);
+        // console.log(response.data);
         setLabelList(response.data);
       } catch (error) {
         console.log(error.response.data);
@@ -58,12 +58,17 @@ function Label() {
   };
 
   const deleteHandler = (event, id) => {
-    ApiService.deleteLabel(id).then((response) => {
-      const ele = document.getElementById(id);
-      console.log(ele);
-      ele.remove();
-      window.location.reload();
-    });
+    console.log(id);
+    ApiService.deleteLabel(id)
+      .then((response) => {
+        const ele = document.getElementById(id);
+        console.log(ele);
+        ele.remove();
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const editLableHandler = (event, labelName, id) => {
@@ -73,72 +78,75 @@ function Label() {
   };
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit}>
-        <label>Name :</label>
-        <div>
-          <input
-            name="name"
-            type="text"
-            value={name}
-            onChange={inputChangeHandler}
-            placeholder="Title"
-          />
-          {errors.name && <span>{errors.name}</span>}
-        </div>
-        {isedit ? (
-          <Button color="success" size="sm">
-            Update Label
-          </Button>
-        ) : (
-          <Button color="success" size="sm">
-            Add Label
-          </Button>
-        )}
-        {isedit && (
-          <Button
-            color="danger"
-            size="sm"
-            onClick={() => {
-              setEdit(() => false);
-              setName(() => "");
-              setLabId(() => "");
-            }}
-          >
-            Cancel
-          </Button>
-        )}
-      </form>
-      <table>
-        <thead>
-          <tr>
-            <th>S.No</th>
-            <th>Label</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {labelList &&
-            labelList.map((data, index) => (
-              <tr key={index} id={data.id}>
-                <td>{index + 1}</td>
-                <td>{data.name}</td>
-                <td>
-                  <div>
-                    <EditNoteOutlinedIcon
-                      onClick={(event) => {
-                        editLableHandler(event, data.name, data.id);
-                      }}
-                    />
-                    <DeleteForeverOutlinedIcon
-                      onClick={(event) => deleteHandler(event, data.id)}
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+    <div className="hero-main">
+      <div className="doodle"></div>
+      <div className="container">
+        <form onSubmit={handleSubmit}>
+          <label>Name :</label>
+          <div>
+            <input
+              name="name"
+              type="text"
+              value={name}
+              onChange={inputChangeHandler}
+              placeholder="Title"
+            />
+            {errors.name && <span>{errors.name}</span>}
+          </div>
+          {isedit ? (
+            <Button color="success" size="sm">
+              Update Label
+            </Button>
+          ) : (
+            <Button color="success" size="sm">
+              Add Label
+            </Button>
+          )}
+          {isedit && (
+            <Button
+              color="danger"
+              size="sm"
+              onClick={() => {
+                setEdit(() => false);
+                setName(() => "");
+                setLabId(() => "");
+              }}
+            >
+              Cancel
+            </Button>
+          )}
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Label</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {labelList &&
+              labelList.map((data, index) => (
+                <tr key={index} id={data.id}>
+                  <td>{index + 1}</td>
+                  <td>{data.name}</td>
+                  <td>
+                    <div>
+                      <EditNoteOutlinedIcon
+                        onClick={(event) => {
+                          editLableHandler(event, data.name, data.id);
+                        }}
+                      />
+                      <DeleteForeverOutlinedIcon
+                        onClick={(event) => deleteHandler(event, data.id)}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

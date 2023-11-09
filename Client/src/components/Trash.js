@@ -3,6 +3,7 @@ import "../Style/card.css";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ApiService from "../Services/ApiService";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
+import { Tooltip } from "@mui/material";
 
 function Trash() {
   const [noteList, setNoteList] = useState(null);
@@ -37,26 +38,33 @@ function Trash() {
   };
 
   return (
-    <div className="d-flex flex-wrap notes">
-      {noteList &&
-        noteList.map((data) => {
-          return (
-            <div className="card1" id={data.id} key={data.id}>
-              <h3>{data.title}</h3>
-              <p>{data.description}</p>
-              <div className="d-flex justify-content-around w-100">
-                <RestoreFromTrashIcon
-                  onClick={(event) => {
-                    restoreNoteHandler(event, data.id);
-                  }}
-                />
-                <DeleteForeverOutlinedIcon
-                  onClick={(event) => trashNoteHandler(event, data.id)}
-                />
+    <div className="hero-main">
+      <div className="doodle"></div>
+      <div className="d-flex flex-wrap notes">
+        {noteList &&
+          noteList.map((data) => {
+            return (
+              <div className="card1" id={data.id} key={data.id}>
+                <h5>{data.title}</h5>
+                <p>{data.description}</p>
+                <div className="d-flex justify-content-around w-100">
+                  <Tooltip title="Restore">
+                    <RestoreFromTrashIcon
+                      onClick={(event) => {
+                        restoreNoteHandler(event, data.id);
+                      }}
+                    />
+                  </Tooltip>
+                  <Tooltip title="Delete">
+                    <DeleteForeverOutlinedIcon
+                      onClick={(event) => trashNoteHandler(event, data.id)}
+                    />
+                  </Tooltip>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+      </div>
     </div>
   );
 }

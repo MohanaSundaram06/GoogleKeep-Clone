@@ -10,6 +10,8 @@ import Notes from "./components/Notes";
 import "./App.css";
 import Label from "./components/Label";
 import Remainder from "./components/Remainder";
+import LabelFilter from "./components/LabelFilter";
+import { useState } from "react";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
           <Route path="/add-note" element={<NoteForm />} />
           <Route path="/label" element={<Label />} />
           <Route path="/edit-note/:id" element={<EditNote />} />
+          <Route path="/label/:id/:name" element={<LabelFilter />} />
         </Routes>
       </BrowserRouter>
     </>
